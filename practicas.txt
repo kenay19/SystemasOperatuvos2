@@ -1,0 +1,2 @@
+1.- Producer and Consumer (IPC) (Ejercicio 1 producer, 3 consumer)
+2.- MemWriter y MemReader (ReaderWriter)(Ejercicio 1 memwriter, 2 memreader)
