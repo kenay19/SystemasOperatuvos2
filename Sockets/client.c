@@ -10,9 +10,7 @@
 #include <netdb.h>
 #include "sock.h"
 
-const char* books[] = {"War and Peace",
-		       "Pride and Prejudice",
-		       "The Sound and the Fury"};
+
 
 void report(const char* msg, int terminate) {
   perror(msg);
@@ -45,18 +43,34 @@ int main() {
   
   /* Write some stuff and read the echoes. */
   puts("Connect to server, about to write some stuff...");
-  int i;
-  for (i = 0; i < ConversationLen; i++) {
-    if (write(sockfd, books[i], strlen(books[i])) > 0) {
-      /* get confirmation echoed from server and print */
-      char buffer[BuffSize + 1];
-      memset(buffer, '\0', sizeof(buffer));
-      if (read(sockfd, buffer, sizeof(buffer)) > 0)
-	puts(buffer);
-    }
+  /* Escribe la lista de libros que el servidor le manda*/
+  char buffer[BuffSize + 1];
+  if(read(sockfd, buffer, sizeof(buffer))) {
+    puts(buffer);
   }
+  int opcion = 1;
+  while(opcion) {
+    printf("Cuantos libros tomaras: ");
+  int n;
+  scanf("%i", &n);
+  char indices[n][1] ;
+  for(int i = 0 ; i < n; i++) {
+    printf("libro %i: ",i+1);
+    scanf("%s", indices[i]);
+  }
+  write(sockfd,indices,n);
+  puts("Estos son tus libros escogidos");
+  char buffer2[BuffSize + 1];
+  read(sockfd, buffer2, sizeof(buffer2));
+  puts(buffer2);
+  puts("Deseas otros libros?");
+  puts("1) si ");
+  puts("0) no");
+  scanf("%i",&opcion);
+  }
+  
   puts("Client done, about to exit...");
-  close(sockfd); /* close the connection */
+  close(sockfd);  
   return 0;
 }
 
