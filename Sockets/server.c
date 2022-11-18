@@ -7,6 +7,7 @@
 #include <netinet/tcp.h>
 #include <arpa/inet.h>
 #include "sock.h"
+#include <pthread.h>
 
 int leng(const char * []);
 const char *books[] = {
